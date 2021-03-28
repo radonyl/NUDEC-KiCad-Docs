@@ -51,7 +51,8 @@ KiCad是一款开源免费的PCB设计工具，得益于开源的优势，KiCad�
     ![IMG](./images/readme/kicad_pcb_plot_gerber.png)
 
     ![IMG](./images/readme/kicad_pcb_gen_drill_file.png)
-
+    
+2.  完成后，将工程目录的gerber文件夹（之前设置的输出文件夹）打包为.zip后，将zip文件送厂
 
 #### PCB送厂注意事项
 

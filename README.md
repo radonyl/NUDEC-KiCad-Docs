@@ -41,7 +41,7 @@ KiCad是一款开源免费的PCB设计工具，得益于开源的优势，KiCad�
 
 #### PCB的规则检查
 
-1.  投产前使用DRC检查是否存在违例
+1.  **投产前使用DRC检查是否存在违例**
 2.  可依据制造商的工艺参数设置最小间距等
     ![IMG](./images/readme/kicad_pcb_drc.png)
 
@@ -60,3 +60,53 @@ KiCad是一款开源免费的PCB设计工具，得益于开源的优势，KiCad�
 2.  设计参数应高于极限参数
 3.  对于非常规设计，选择“需要生产确认稿”
 4.  对于贴片元件多的板子可以使用SMT，或开钢网
+
+#### 常见PCB绘制问题
+
+1.  使用偏脚的SMA接头没有放在板子的边缘，到时候就装不上去了！
+    ![IMG](./images/readme/layout_sma_edge.png)
+
+2.  GND铺铜的问题，对于二层板建议两面都铺上完整的地。对于四层板，在内层有完整铺铜的情况下，外层无需铺铜。这样的话板子上的地线就不需要单独走线了，只需要在接地的引脚附近打一个GND过孔（不要打在引脚焊盘上！），在画完之后检查所有的GND的连通性，可以通过添加过孔的方式解决连通性问题。
+    ![IMG](./images/readme/kicad_pcb_gnd_pour_1.png)
+
+    这也启示我们，如果是两层板，尽量不要在背面走长线，以免破坏地平面完整性。
+
+    第二，我们一定要尽量保证所有芯片到地的阻抗最小，因此最好每个引脚都有GND过孔，当然靠得比较近的可以共用。
+
+    ![IMG](./images/readme/kicad_pcb_gnd_pour_2.png)
+
+3.  铺铜的设置
+    ![IMG](./images/readme/kicad_pcb_pour_config.png)
+    
+4.  板上电源输入的问题，一般情况下通过间距为2.54mm的插针引入电源，电源接入后经过滤波给板子提供电源。可选电源指示灯、接反保护等。
+    ![IMG](./images/readme/power_input_section.png)
+
+    请注意，输入线路虽然名字不叫+5V，但也是电源线的一部分，走线宽度应与+5V保持一致。
+
+5.  电源去耦，用于防止噪声通过芯片电源线进出，应该紧靠芯片放置
+
+    ![IMG](./images/readme/kicad_sch_decouple_cap.png)
+
+    ![IMG](./images/readme/kicad_pcb_decouple_cap.png)
+
+6.  走线粗细的选择，普通信号线可选择0.2/0.25mm，电源线根据电流大小，一般在0.5mm~1mm。射频信号线，根据设计的阻抗走线，同时遇到线宽变化时，应尽量平滑过渡。
+
+    ![IMG](./images/readme/kicad_pcb_powerline_example.png)
+
+7.  走线的基本规则:不走直角，避免锐角；不走断头线，非必要不绕路。
+
+    ![IMG](./images/readme/pcb_routing_rule_1.png)
+
+8.  信号回流路径的考虑
+    
+    下图中底层绿线割裂了底层地平面，导致信号回流路径受阻。如果是四层板，也要同样注意回流路径，避免空间上不重叠（黄线是理想的回流路径，被割裂后被迫走蓝线）
+    
+    ![IMG](./images/readme/kicad_pcb_return_path.png)
+
+9.  选择合适的网格
+
+    ![IMG](./images/readme/kicad_pcb_grid.png)
+
+10. 共面波导的Via Stitching
+
+    ![IMG](./images/readme/kicad_pcb_via_stitching.png)
